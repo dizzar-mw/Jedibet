@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>jedibet.mw</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <style>
+  
+  
+.game-container {
+  font-family: 'Money', sans-serif;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.balance {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.bet-container {
+  margin-bottom: 20px;
+}
+
+#bet-amount {
+  width: 100px;
+  height: 30px;
+  font-size: 18px;
+}
+
+#place-bet {
+  width: 100px;
+  height: 30px;
+  font-size: 18px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.result {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.multiplier {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+#cash-out {
+  width: 100px;
+  height: 30px;
+  font-size: 18px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+  
+  </style>  
+  <div class="game-container">
+    <h1>Welcome to Jedibet.mw</h1>
+    <div class="balance">Balance: K<span id="balance">100</span></div>
+    <div class="bet-container">
+      <input id="bet-amount" type="number" placeholder="Bet amount">
+      <button id="place-bet">Place Bet</button>
+    </div>
+    <div class="result">Result: <span id="result"></span></div>
+    <div class="multiplier">Multiplier: <span id="multiplier">1.0</span>x</div>
+    <button id="cash-out">Cash Out</button>
+  </div>
+  <script >
+  
+  
+  
+
+let balance = 1000;
+let betAmount = 0;
+let multiplier = 1.0;
+let isBetPlaced = false;
+let result = 0;
+
+document.getElementById('balance').innerHTML = balance;
+
+document.getElementById('place-bet').addEventListener('click', () => {
+  betAmount = parseFloat(document.getElementById('bet-amount').value);
+  if (betAmount > 0 && betAmount <= balance) {
+    balance -= betAmount;
+    document.getElementById('balance').innerHTML = balance;
+    isBetPlaced = true;
+    multiplier = 1.0 ;
+    document.getElementById('multiplier').innerHTML = multiplier.toFixed(2);
+    result = 0;
+    document.getElementById('result').innerHTML = '';
+    startGame();
+  } else {
+    alert('Invalid bet amount');
+  }
+});
+
+document.getElementById('cash-out').addEventListener('click', () => {
+  if (isBetPlaced) {
+    result = betAmount * multiplier;
+    balance += result;
+    document.getElementById('balance').innerHTML = balance;
+    document.getElementById('result').innerHTML = `You won k${result.toFixed(2)}`;
+    isBetPlaced = false;
+  } else {
+    alert('simuna bete yesaniso');
+  }
+});
+
+function startGame() {
+  setInterval(() => {
+    if (isBetPlaced) {
+      multiplier += 0.001;
+      document.getElementById('multiplier').innerHTML = multiplier.toFixed(2);
+    }
+  }, 1);
+}
+
+  
+  </script>
+  <p>designed by<a href="https://www.facebook.com/dizaya.diza"> Dizzar®</a></p>
+</body>
+</html>
+<!--
+```indetu mani jedi
